@@ -1,10 +1,23 @@
+'use client' // 👈 use it here
 import Link from 'next/link';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "@/lib/axios";
-import { useEffect } from "react";
+import { useEffect, useState} from "react";
 
 const Todo: React.FC = () => {
-  useEffect(())
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+  function fetchTodos() {
+    axios
+      .get('/api/todos')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <div className="container mt-5">
       <h1 className="mb-4 text-center">Todo</h1>
