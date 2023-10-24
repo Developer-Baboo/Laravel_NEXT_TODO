@@ -2,22 +2,36 @@
 import Link from 'next/link';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "@/lib/axios";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+
+interface Todo {
+  id: number;
+  title: string;
+}
 
 const Todo: React.FC = () => {
+
+  const [todos, setTodos] = useState<Todo[]>([]);
+
   useEffect(() => {
     fetchTodos();
   }, []);
+
   function fetchTodos() {
     axios
       .get('/api/todos')
       .then((res) => {
-        console.log(res);
+        setTodos(res.data);
+        console.log(todos);
       })
       .catch((err) => {
         console.log(err);
       });
   }
+   useEffect(() => {
+    // This will log the updated state whenever `todos` changes
+    console.log(todos);
+  }, [todos]);
   return (
     <div className="container mt-5">
       <h1 className="mb-4 text-center">Todo</h1>
@@ -40,11 +54,18 @@ const Todo: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>fdgdf</td>
-                  <td>dfgdfg</td>
+              {todos.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.title}</td>
+                  <td>
+                    <button  className='btn btn-primary btn-sm'>Edit</button> &nbsp; 
+                    <button  className='btn btn-danger btn-sm'>Delete</button>
+                    {/* <Link href={`/todo/${item.id}`}>
+                    </Link> */}
+                  </td>
                 </tr>
+              ))}
             </tbody>
           </table>
         </div>
