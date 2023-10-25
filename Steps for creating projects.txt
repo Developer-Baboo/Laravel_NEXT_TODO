@@ -1,0 +1,34 @@
+steps
+1 make project in laravel
+2 make model and route, migrations
+3 make:model Todo -mc --api
+4 add fields in migrations
+5 fillable in modal
+6 index file in TodoController for displaylineg todo
+7 env file db name
+8 artisan migrate
+9 add first data in DatabaseSeeder
+10 php artisan migrate:fresh --seed
+11 run app, check data came in xampp or not
+12 create nextjs project, leave all by default
+13 page is your route file
+14 npm run dev
+15 import link for routing
+16 make page for todo
+17 npm install bootstrap
+18 import bootstrap in todo/page.tsx
+19 for fetch data from you need axios
+20 npm install axios
+21 make folder lib (stand for libraries)
+22 lib/axios.js (setup axios in the file)
+23 setup base URL in next.config.js file env:{BACKEND_URL: 'http://localhost:8000'}
+24 after setup import axios in todo/page.tsx
+25 go to laravel project/cors.php file change allowed_origions to ['http://localhost:3000'], support credentail wo dana jo ap na axios man de han
+26 stop laravel project artian config:cache
+27 run again command
+29 make the front end function todo/page.tsx
+30 make store function in laravel
+31 return response true in storemethod in laravel
+32 then perform curd operations
+
+
