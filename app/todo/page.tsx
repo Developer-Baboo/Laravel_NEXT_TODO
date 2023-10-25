@@ -18,11 +18,15 @@ const Todo: React.FC = () => {
   const [todoid, setTodoId] = useState('');
 
   // Fetch todos on component mount
+  /* 
+  useEffect is used to fetch data from an API endpoint after the component is rendered
+  */
   useEffect(() => {
     fetchTodos();
   }, []);
 
   // Handle title input change
+  //title sa jo arha ha wo e man store hoga
   const titleChange = (e) => {
     setTitle(e.target.value);
   }
@@ -47,18 +51,6 @@ const Todo: React.FC = () => {
     url = `api/todos/${todoid}`;
     // formData.append('_method', 'PUT');
   }
-
-  // axios.put(url, formData, headers: {
-  //       'X-CSRF-TOKEN': csrfToken
-  //     })
-  //   .then((response) => {
-  //     setTitle('');
-  //     fetchTodos();
-  //     setTodoId('');
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error updating todo:', error);
-    //   });
 
 
   // Make a POST or PUT request based on the existence of todo ID  
@@ -208,5 +200,4 @@ const Todo: React.FC = () => {
     </div>
   );
 };
-
 export default Todo;
