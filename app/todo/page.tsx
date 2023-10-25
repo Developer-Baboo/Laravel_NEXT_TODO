@@ -79,7 +79,21 @@ const Todo: React.FC = () => {
       return; // Break the loop after finding the matching item
     }
   });
-}
+  }
+
+  function deleteTodo(id) {
+    axios({
+      method: 'delete',
+      url: `api/todos/${id}`,
+      data: {_token:window.csrfToken},
+    })
+    .then((response) => {
+        fetchTodos();
+      })
+    .catch((error) => {
+        console.error('Error deleting todo:', error);
+      });
+  }
 
 
   function fetchTodos() {
@@ -132,7 +146,9 @@ const Todo: React.FC = () => {
                       className='btn btn-primary btn-sm'
                       onClick={()=> editTodo(item.id)}
                     >Edit</button> &nbsp; 
-                    <button  className='btn btn-danger btn-sm'>Delete</button>
+                    <button className='btn btn-danger btn-sm'
+                      onClick={() => deleteTodo(item.id)}
+                    >Delete</button>
                     {/* <Link href={`/todo/${item.id}`}>
                     </Link> */}
                   </td>
