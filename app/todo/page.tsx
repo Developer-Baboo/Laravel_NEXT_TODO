@@ -66,7 +66,7 @@ const Todo: React.FC = () => {
       method: todoid !== '' ? 'put' : 'post',
       url: url,
       data: {title: title, _token:csrfToken},
-    
+
     })
       .then((response) => {
         setTitle('');
