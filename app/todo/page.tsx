@@ -24,11 +24,16 @@ const Todo: React.FC = () => {
   }
 
   const submitForm = (e) => {
-  e.preventDefault();
+    e.preventDefault();
+  // Check if title is empty before making the request
+  if (!title) {
+    console.error('Title cannot be empty');
+    return;
+  }
   var formData = new FormData();
-  formData.append('title', "hello");
-  formData.append('id', todoid);
-  // formData.append('is_done', 0);
+  formData.append('title', title);
+  // formData.append('id', todoid);
+  formData.append('is_done', 0);
 
     let url = `api/todos`;
     const csrfToken = window.csrfToken;
@@ -52,12 +57,12 @@ const Todo: React.FC = () => {
   axios({
       method: todoid !== '' ? 'put' : 'post',
       url: url,
-      data: {title:'hello', _token:csrfToken},
+      data: {title: title, _token:csrfToken},
     
     })
       .then((response) => {
         setTitle('');
-        // fetchTodos();
+        fetchTodos();
         setTodoId('');
       })
       .catch((error) => {
