@@ -95,6 +95,21 @@ const Todo: React.FC = () => {
       });
   }
 
+ function isDoneTodo(id, is_done) {
+  let params = { 'is_done': !is_done }; // Corrected object syntax
+  axios({
+    method: 'post',
+    url: `api/todos/done/${id}`, // Corrected template literal syntax
+    data: { _token: window.csrfToken, ...params }, // Include params in data object if needed
+  })
+    .then((response) => {
+      fetchTodos();
+    })
+    .catch((error) => {
+      console.error('Error deleting todo:', error);
+    });
+}
+
 
   function fetchTodos() {
     axios
@@ -131,14 +146,23 @@ const Todo: React.FC = () => {
           <table className="table table-bordered">
             <thead>
               <tr>
-                <th scope="col">CDN</th>
+                <th>is Done</th>
+                <th>SNO#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               {todos.map((item) => (
-                <tr key={item.id}>
+                <tr key={item.id} className={item.is_done ? 'text-decoration-line-through': ''} >
+                  <td>
+                    <input
+                      type="checkbox"
+                      className='form-check-input'
+                      checked={item.is_done}
+                      onChange={()=>isDoneTodo(item.id, item.is_done)}
+                      name="" id="" />
+                  </td>
                   <td>{item.id}</td>
                   <td>{item.title}</td>
                   <td>
